@@ -1,5 +1,7 @@
 using System.Security.Cryptography;
 using System.Text;
+using System;
+using System.IO;
 
 //HINT: This service reads the secret key from a file and computes the SHA256 hash
 public interface ISecretKeyService
@@ -19,7 +21,22 @@ public class SecretKeyService : ISecretKeyService
   public string GetCertHash()
   {
     var filePath = _locationProvider.GetCertLocation();
-    string key = ReadKeyFromFile(filePath);
+    // Console.WriteLine($"SecretKeyService: Error reading key from file: {filePath}");
+    // string key = ReadKeyFromFile(filePath);
+    // string hashedKey = ComputeSHA256Hash(key);
+    // return hashedKey;
+    string key;
+    try
+    {
+      key = ReadKeyFromFile(filePath);
+    }
+    catch (Exception ex)
+    {
+      Console.WriteLine($"SecretKeyService: Error reading key from file: {filePath}");
+      Console.WriteLine($"SecretKeyService: Exception: {ex.Message}");
+      throw;
+    }
+
     string hashedKey = ComputeSHA256Hash(key);
     return hashedKey;
   }

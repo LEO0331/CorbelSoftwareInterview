@@ -11,6 +11,9 @@ builder.Services.Configure<JsonOptions>(options =>
 builder.Services.AddEndpointsApiExplorer();
 
 //HINT: dependency injection
+//Register CertLocationProvider with the DI container, to ensure that all services required by SecretKeyService are correctly registered
+builder.Services.AddScoped<ICertLocationProvider, CertLocationProvider>();
+
 builder.Services.AddScoped<ISecretKeyService, SecretKeyService>();
 builder.Services.AddScoped<IBasicInfoService, BasicInfoService>();
 

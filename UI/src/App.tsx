@@ -1,3 +1,4 @@
+import { InfoProvider } from "./Contexts/InfoProvider.tsx";
 import UserResults from "./UserResults";
 import "./App.css";
 
@@ -6,7 +7,9 @@ function App() {
     <div className="mainBody">
       <div className="mainColumn">
         <Welcome />
-        <UserResults />
+        <InfoProvider>
+          <UserResults />
+        </InfoProvider>
       </div>
     </div>
   );
